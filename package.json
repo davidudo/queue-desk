@@ -2,7 +2,7 @@
   "name": "queuedesk",
   "version": "1.0.0",
   "private": true,
-  "description": "QueueDesk — Production-grade internal support ticket management platform",
+  "description": "QueueDesk \u2014 Production-grade internal support ticket management platform",
   "license": "MIT",
   "packageManager": "pnpm@9.15.9",
   "engines": {
@@ -60,8 +60,25 @@
       "eslint --fix",
       "prettier --write"
     ],
-    "*.{json,md,yml,yaml,css,sql}": [
+    "*.{json,md,yml,yaml,css}": [
       "prettier --write"
     ]
-  }
+  },
+  "homepage": "https://github.com/davidudo/queue-desk#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidudo/queue-desk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/davidudo/queue-desk/issues"
+  },
+  "keywords": [
+    "support-ticket",
+    "helpdesk",
+    "typescript",
+    "react",
+    "express",
+    "postgresql",
+    "monorepo"
+  ]
 }

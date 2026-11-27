@@ -4,7 +4,7 @@
 
 If you discover a security vulnerability in QueueDesk, please **do not** open a public GitHub issue.
 
-Instead, report it privately to the security maintainers at `security@queuedesk.local` with:
+Instead, use [GitHub private vulnerability reporting](https://github.com/davidudo/queue-desk/security/advisories/new) and include:
 
 - A clear description of the issue and affected component.
 - Steps to reproduce or a minimal proof of concept.

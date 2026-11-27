@@ -1,5 +1,8 @@
 # QueueDesk
 
+[![CI](https://github.com/davidudo/queue-desk/actions/workflows/ci.yml/badge.svg)](https://github.com/davidudo/queue-desk/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 QueueDesk is an internal support-ticket management platform built with TypeScript, React, Express, and PostgreSQL in a pnpm workspaces monorepo.
 
 ## Features
@@ -25,8 +28,10 @@ QueueDesk is an internal support-ticket management platform built with TypeScrip
 
 ## Quick Start (Local Development)
 
-1. **Install dependencies**:
+1. **Clone and install dependencies**:
    ```bash
+   git clone https://github.com/davidudo/queue-desk.git
+   cd queue-desk
    pnpm install
    ```
 2. **Configure environment**:
@@ -101,3 +106,31 @@ For production deployment with versioned GHCR images, see [docs/deployment/deplo
 - [Deployment Guide](docs/deployment/deployment-guide.md)
 - [Operations Runbook](docs/operations/runbook.md)
 - [ADR 0001: Modular Monolith & Explicit SQL](docs/adr/0001-monolith-api-and-explicit-sql.md)
+
+## Repository Layout
+
+```text
+apps/api/          Express API, repositories, middleware, and API tests
+apps/web/          React application and frontend tests
+packages/shared/   Shared schemas and TypeScript types
+packages/config/   Shared configuration package
+database/          SQL migrations and synthetic seed data
+benchmarks/        HTTP load benchmarks and query-plan analysis
+tests/             End-to-end tests
+infrastructure/    Docker and Nginx configuration
+docs/              Architecture, development, deployment, and operations guides
+```
+
+## Contributing and Support
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow. Use
+[GitHub Issues](https://github.com/davidudo/queue-desk/issues) to report bugs or
+request features. Include reproduction steps and relevant environment details.
+For private vulnerability reports, follow [SECURITY.md](SECURITY.md).
+
+The seeded accounts above are synthetic development fixtures. Configure your own
+credentials and secrets before deploying a shared instance.
+
+## License
+
+Released under the [MIT License](LICENSE).
