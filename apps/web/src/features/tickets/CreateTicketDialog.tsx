@@ -92,7 +92,7 @@ export function CreateTicketDialog({
           {errors.subject && <p className="text-xs text-destructive">{errors.subject.message}</p>}
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div className="space-y-1">
             <label htmlFor="create-queue" className="text-sm font-medium">
               Queue
@@ -126,7 +126,7 @@ export function CreateTicketDialog({
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div className="space-y-1">
             <label htmlFor="create-req-name" className="text-sm font-medium">
               Requester Name
@@ -189,7 +189,7 @@ export function CreateTicketDialog({
           )}
         </div>
 
-        <div className="flex justify-end gap-2 pt-2">
+        <div className="flex flex-wrap justify-end gap-2 pt-2">
           <Button variant="outline" onClick={onClose}>
             Cancel
           </Button>

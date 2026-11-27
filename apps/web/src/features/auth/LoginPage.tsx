@@ -44,7 +44,7 @@ export function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4">
+    <div className="flex min-h-dvh items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md p-6 space-y-6">
         <div className="space-y-1 text-center">
           <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold">
@@ -106,7 +106,7 @@ export function LoginPage() {
             <p className="text-xs font-medium text-muted-foreground text-center">
               Synthetic Development Accounts
             </p>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {DEV_ACCOUNTS.map((acc) => (
                 <Button
                   key={acc.label}

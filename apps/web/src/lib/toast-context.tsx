@@ -35,7 +35,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       {children}
       <div
         aria-live="polite"
-        className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"
+        className="fixed bottom-4 inset-x-4 sm:left-auto sm:right-4 z-50 flex flex-col gap-2 sm:max-w-sm sm:w-full pointer-events-none"
       >
         {items.map((item) => (
           <div
@@ -53,7 +53,9 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             ) : (
               <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
             )}
-            <span className="text-sm font-medium flex-1">{item.title}</span>
+            <span className="text-sm font-medium min-w-0 flex-1 [overflow-wrap:anywhere]">
+              {item.title}
+            </span>
             <button
               type="button"
               onClick={() => dismiss(item.id)}

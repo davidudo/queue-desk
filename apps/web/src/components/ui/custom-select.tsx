@@ -147,7 +147,7 @@ export function Select({
   }
 
   return (
-    <div ref={containerRef} className={cn('relative w-full', className)}>
+    <div ref={containerRef} className={cn('relative min-w-0 w-full', className)}>
       <button
         ref={triggerRef}
         id={id}
@@ -161,12 +161,14 @@ export function Select({
         onClick={() => setOpen((prev) => !prev)}
         onKeyDown={handleKeyDown}
         className={cn(
-          'flex h-9 w-full items-center justify-between gap-2 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors',
+          'flex h-11 sm:h-9 min-w-0 w-full items-center justify-between gap-2 rounded-md border border-input bg-background px-3 py-1 text-base sm:text-sm shadow-sm transition-colors',
           'hover:bg-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
           'disabled:cursor-not-allowed disabled:opacity-50',
         )}
       >
-        <span className={cn('truncate text-left', !selectedOption && 'text-muted-foreground')}>
+        <span
+          className={cn('min-w-0 truncate text-left', !selectedOption && 'text-muted-foreground')}
+        >
           {selectedOption ? selectedOption.label : placeholder}
         </span>
         <ChevronDown
@@ -195,12 +197,16 @@ export function Select({
                 }}
                 placeholder="Filter options..."
                 aria-label="Filter dropdown options"
-                className="w-full bg-transparent text-xs outline-none placeholder:text-muted-foreground"
+                className="min-w-0 w-full bg-transparent text-base sm:text-xs outline-none placeholder:text-muted-foreground"
               />
             </div>
           )}
 
-          <ul id={listboxId} role="listbox" className="max-h-60 overflow-y-auto p-1">
+          <ul
+            id={listboxId}
+            role="listbox"
+            className="max-h-[min(15rem,40dvh)] overflow-y-auto p-1"
+          >
             {filteredOptions.length === 0 ? (
               <li className="px-2.5 py-2 text-xs text-muted-foreground">No matching options</li>
             ) : (
@@ -218,7 +224,7 @@ export function Select({
                       selectOption(option);
                     }}
                     className={cn(
-                      'flex cursor-pointer items-center justify-between gap-2 rounded-sm px-2.5 py-1.5 text-sm transition-colors',
+                      'flex cursor-pointer items-center justify-between gap-2 rounded-sm px-2.5 py-3 sm:py-1.5 text-sm transition-colors',
                       isHighlighted && 'bg-accent text-accent-foreground',
                       isSelected && 'font-medium',
                     )}

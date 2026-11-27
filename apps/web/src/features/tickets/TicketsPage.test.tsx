@@ -49,7 +49,8 @@ describe('TicketsPage', () => {
       </QueryClientProvider>,
     );
 
-    expect(await screen.findByText(/synthetic billing mismatch/i)).toBeInTheDocument();
+    const matches = await screen.findAllByText(/synthetic billing mismatch/i);
+    expect(matches.length).toBeGreaterThan(0);
     expect(screen.getByText(/1 matching tickets/i)).toBeInTheDocument();
   });
 });

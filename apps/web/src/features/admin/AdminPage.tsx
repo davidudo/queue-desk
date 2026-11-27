@@ -177,13 +177,13 @@ export function AdminPage() {
                 placeholder="Queue name"
                 value={queueName}
                 onChange={(e) => setQueueName(e.target.value)}
-                className="max-w-xs"
+                className="w-full sm:max-w-xs"
               />
               <Input
                 placeholder="queue-slug"
                 value={queueSlug}
                 onChange={(e) => setQueueSlug(e.target.value)}
-                className="max-w-xs"
+                className="w-full sm:max-w-xs"
               />
               <Button type="submit" disabled={createQueueMutation.isPending}>
                 Add Queue
@@ -192,7 +192,7 @@ export function AdminPage() {
           )}
           <div className="divide-y">
             {(queuesQuery.data ?? []).map((q) => (
-              <div key={q.id} className="py-3 flex items-center justify-between">
+              <div key={q.id} className="py-3 flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <div className="font-medium">{q.name}</div>
                   <div className="text-xs text-muted-foreground">
@@ -224,7 +224,7 @@ export function AdminPage() {
                 placeholder="Tag name"
                 value={tagName}
                 onChange={(e) => setTagName(e.target.value)}
-                className="max-w-xs"
+                className="w-full sm:max-w-xs"
               />
               <input
                 type="color"
@@ -242,7 +242,7 @@ export function AdminPage() {
             {(tagsQuery.data ?? []).map((t) => (
               <div
                 key={t.id}
-                className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm"
+                className="inline-flex max-w-full items-center gap-2 rounded-full border px-3 py-1 text-sm"
               >
                 <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: t.color }} />
                 <span>{t.name}</span>
@@ -264,7 +264,7 @@ export function AdminPage() {
 
       {activeTab === 'agents' && (
         <Card className="p-5 overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="min-w-[560px] w-full text-sm">
             <thead>
               <tr className="border-b text-left text-xs text-muted-foreground">
                 <th className="pb-2">Agent</th>
@@ -301,7 +301,7 @@ export function AdminPage() {
 
       {activeTab === 'users' && (
         <Card className="p-5 overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="min-w-[560px] w-full text-sm">
             <thead>
               <tr className="border-b text-left text-xs text-muted-foreground">
                 <th className="pb-2">Name</th>
@@ -329,7 +329,7 @@ export function AdminPage() {
                           value: r,
                           label: formatStatusLabel(r),
                         }))}
-                        className="max-w-[180px]"
+                        className="min-w-[160px] max-w-[180px]"
                       />
                     ) : (
                       <span>{formatStatusLabel(u.role)}</span>
@@ -344,7 +344,7 @@ export function AdminPage() {
 
       {activeTab === 'audit' && (
         <Card className="p-5 overflow-x-auto">
-          <table className="w-full text-xs">
+          <table className="min-w-[560px] w-full text-xs">
             <thead>
               <tr className="border-b text-left text-muted-foreground">
                 <th className="pb-2">Timestamp</th>

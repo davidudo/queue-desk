@@ -256,8 +256,8 @@ export function TicketsPage() {
           }}
           className="flex flex-wrap gap-2"
         >
-          <div className="relative flex-1 min-w-[220px]">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <div className="relative w-full min-w-0 sm:flex-1 sm:min-w-[220px]">
+            <Search className="absolute left-2.5 top-3.5 sm:top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               aria-label="Search tickets"
               placeholder="Search subject or description..."
@@ -358,37 +358,72 @@ export function TicketsPage() {
             No tickets match the current search or filter criteria.
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="border-b bg-muted/40">
-                {table.getHeaderGroups().map((hg) => (
-                  <tr key={hg.id}>
-                    {hg.headers.map((header) => (
-                      <th
-                        key={header.id}
-                        className="px-4 py-3 text-left text-xs font-medium text-muted-foreground"
-                      >
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(header.column.columnDef.header, header.getContext())}
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody className="divide-y">
-                {table.getRowModel().rows.map((row) => (
-                  <tr key={row.id} className="hover:bg-muted/30 transition-colors">
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="px-4 py-3 align-middle">
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <>
+            {/* Mobile Card View */}
+            <div className="divide-y md:hidden">
+              {items.map((ticket) => (
+                <div key={ticket.id} className="p-4 space-y-2 [overflow-wrap:anywhere]">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <Link
+                      to={`/tickets/${ticket.id}`}
+                      className="font-mono text-xs font-semibold text-primary hover:underline"
+                    >
+                      #{ticket.ticketNumber}
+                    </Link>
+                    <div className="flex items-center gap-1.5">
+                      <StatusBadge status={ticket.status} />
+                      <PriorityBadge priority={ticket.priority} />
+                    </div>
+                  </div>
+                  <Link
+                    to={`/tickets/${ticket.id}`}
+                    className="block text-sm font-medium hover:underline line-clamp-2"
+                  >
+                    {ticket.subject}
+                  </Link>
+                  <div className="flex flex-wrap items-center justify-between gap-1 text-xs text-muted-foreground">
+                    <span>
+                      {ticket.queueName} • {ticket.assignedAgentName ?? 'Unassigned'}
+                    </span>
+                    <span>{formatDateTime(ticket.updatedAt)}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Table View */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="border-b bg-muted/40">
+                  {table.getHeaderGroups().map((hg) => (
+                    <tr key={hg.id}>
+                      {hg.headers.map((header) => (
+                        <th
+                          key={header.id}
+                          className="px-4 py-3 text-left text-xs font-medium text-muted-foreground"
+                        >
+                          {header.isPlaceholder
+                            ? null
+                            : flexRender(header.column.columnDef.header, header.getContext())}
+                        </th>
+                      ))}
+                    </tr>
+                  ))}
+                </thead>
+                <tbody className="divide-y">
+                  {table.getRowModel().rows.map((row) => (
+                    <tr key={row.id} className="hover:bg-muted/30 transition-colors">
+                      {row.getVisibleCells().map((cell) => (
+                        <td key={cell.id} className="px-4 py-3 align-middle">
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
 
         {/* Pagination */}

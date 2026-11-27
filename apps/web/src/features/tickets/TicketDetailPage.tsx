@@ -150,7 +150,7 @@ export function TicketDetailPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="space-y-1">
+        <div className="min-w-0 space-y-1">
           <Link
             to="/tickets"
             className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
@@ -158,7 +158,7 @@ export function TicketDetailPage() {
             <ArrowLeft className="h-3.5 w-3.5" /> Back to tickets
           </Link>
           <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight [overflow-wrap:anywhere]">
               #{ticket.ticketNumber} {ticket.subject}
             </h1>
             <StatusBadge status={ticket.status} />
@@ -187,9 +187,9 @@ export function TicketDetailPage() {
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Left: Description, Comments, Activity */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="min-w-0 lg:col-span-2 space-y-6">
           <Card className="p-5 space-y-3">
-            <div className="flex items-center justify-between text-xs text-muted-foreground">
+            <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between text-xs text-muted-foreground">
               <span>
                 Requester: <strong className="text-foreground">{ticket.requesterName}</strong> (
                 {ticket.requesterEmail})
@@ -213,7 +213,7 @@ export function TicketDetailPage() {
                       c.isInternal ? 'bg-amber-50/50 dark:bg-amber-950/20 border-amber-300/50' : ''
                     }`}
                   >
-                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                    <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between text-xs text-muted-foreground mb-1">
                       <span className="font-medium text-foreground">
                         {c.authorName}
                         {c.isInternal && (
@@ -244,7 +244,7 @@ export function TicketDetailPage() {
                   {commentForm.formState.errors.body.message}
                 </p>
               )}
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <label className="inline-flex items-center gap-2 text-xs text-muted-foreground">
                   <input type="checkbox" {...commentForm.register('isInternal')} />
                   Internal note (visible to support team only)
@@ -263,7 +263,7 @@ export function TicketDetailPage() {
               {ticket.activity.map((act) => (
                 <li
                   key={act.id}
-                  className="flex items-center justify-between border-b pb-2 last:border-0"
+                  className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-3 border-b pb-2 last:border-0"
                 >
                   <span>
                     <strong>{act.actorName}</strong> performed{' '}
@@ -282,7 +282,7 @@ export function TicketDetailPage() {
           <Card className="p-5 space-y-4">
             <h2 className="text-base font-semibold">Ticket Properties</h2>
 
-            <div className="space-y-1">
+            <div className="min-w-0 space-y-1">
               <label htmlFor="detail-status" className="text-xs font-medium text-muted-foreground">
                 Status
               </label>
@@ -300,7 +300,7 @@ export function TicketDetailPage() {
               />
             </div>
 
-            <div className="space-y-1">
+            <div className="min-w-0 space-y-1">
               <label
                 htmlFor="detail-priority"
                 className="text-xs font-medium text-muted-foreground"
@@ -321,7 +321,7 @@ export function TicketDetailPage() {
               />
             </div>
 
-            <div className="space-y-1">
+            <div className="min-w-0 space-y-1">
               <label htmlFor="detail-queue" className="text-xs font-medium text-muted-foreground">
                 Support Queue
               </label>
@@ -337,7 +337,7 @@ export function TicketDetailPage() {
               />
             </div>
 
-            <div className="space-y-1">
+            <div className="min-w-0 space-y-1">
               <label
                 htmlFor="detail-assignee"
                 className="text-xs font-medium text-muted-foreground"
@@ -368,7 +368,7 @@ export function TicketDetailPage() {
                 {ticket.tags.map((tag) => (
                   <span
                     key={tag.id}
-                    className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs"
+                    className="inline-flex max-w-full items-center gap-1 rounded-full border px-2 py-0.5 text-xs"
                   >
                     <span className="h-2 w-2 rounded-full" style={{ backgroundColor: tag.color }} />
                     {tag.name}

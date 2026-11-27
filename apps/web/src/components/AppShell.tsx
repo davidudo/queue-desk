@@ -9,6 +9,8 @@ import {
   Sun,
   Moon,
   LogOut,
+  Menu,
+  X,
   User as UserIcon,
 } from 'lucide-react';
 import { useAuth } from '@/lib/auth-context';
@@ -18,6 +20,7 @@ import { Button } from './ui/primitives';
 
 export function AppShell() {
   const [collapsed, setCollapsed] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, logout, hasPermission } = useAuth();
   const { theme, toggleTheme } = useTheme();
@@ -38,12 +41,12 @@ export function AppShell() {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background text-foreground">
-      {/* Fixed Collapsible Sidebar */}
+    <div className="flex h-dvh overflow-hidden bg-background text-foreground">
+      {/* Desktop Fixed Collapsible Sidebar */}
       <aside
         aria-label="Primary navigation"
         className={cn(
-          'flex h-full shrink-0 flex-col border-r bg-card transition-all duration-200',
+          'hidden md:flex h-full shrink-0 flex-col border-r bg-card transition-all duration-200',
           collapsed ? 'w-16' : 'w-60',
         )}
       >
@@ -106,14 +109,95 @@ export function AppShell() {
         )}
       </aside>
 
+      {/* Mobile Slide-Over Navigation Drawer */}
+      {mobileNavOpen && (
+        <div className="fixed inset-0 z-50 flex md:hidden">
+          <div
+            className="fixed inset-0 bg-black/50"
+            aria-hidden="true"
+            onClick={() => setMobileNavOpen(false)}
+          />
+          <aside
+            aria-label="Mobile navigation"
+            className="relative z-10 flex h-full w-64 max-w-[calc(100vw-2rem)] flex-col border-r bg-card shadow-xl"
+          >
+            <div className="flex h-14 items-center justify-between border-b px-3">
+              <Link
+                to="/dashboard"
+                onClick={() => setMobileNavOpen(false)}
+                className="flex items-center gap-2 font-bold tracking-tight"
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-primary-foreground text-sm">
+                  Q
+                </span>
+                <span>QueueDesk</span>
+              </Link>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setMobileNavOpen(false)}
+                aria-label="Close navigation menu"
+                className="px-2"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+
+            <nav className="flex-1 space-y-1 p-2">
+              {navItems
+                .filter((item) => item.show)
+                .map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <NavLink
+                      key={item.to}
+                      to={item.to}
+                      onClick={() => setMobileNavOpen(false)}
+                      className={({ isActive }) =>
+                        cn(
+                          'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                          isActive
+                            ? 'bg-primary/10 text-primary'
+                            : 'text-muted-foreground hover:bg-accent hover:text-foreground',
+                        )
+                      }
+                    >
+                      <Icon className="h-4 w-4 shrink-0" />
+                      <span>{item.label}</span>
+                    </NavLink>
+                  );
+                })}
+            </nav>
+
+            {user && (
+              <div className="border-t p-3 text-xs text-muted-foreground">
+                <div className="font-medium text-foreground truncate">{user.fullName}</div>
+                <div className="capitalize">{formatStatusLabel(user.role)}</div>
+              </div>
+            )}
+          </aside>
+        </div>
+      )}
+
       {/* Main Content */}
       <div className="flex flex-1 flex-col min-w-0 overflow-hidden">
-        <header className="sticky top-0 z-30 flex h-14 shrink-0 items-center justify-between border-b bg-card px-4 lg:px-6">
-          <div className="text-sm font-medium text-muted-foreground">
-            Support Operations Platform
+        <header className="sticky top-0 z-30 flex h-14 shrink-0 items-center justify-between gap-2 border-b bg-card px-4 lg:px-6">
+          <div className="flex items-center gap-2 min-w-0">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setMobileNavOpen(true)}
+              aria-label="Open navigation menu"
+              className="md:hidden px-2"
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+            <div className="text-sm font-medium text-muted-foreground truncate">
+              Support Operations Platform
+            </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <Button
               variant="ghost"
               size="sm"
@@ -130,6 +214,7 @@ export function AppShell() {
                 onClick={() => setMenuOpen((o) => !o)}
                 aria-expanded={menuOpen}
                 aria-haspopup="menu"
+                aria-label="Open account menu"
               >
                 <UserIcon className="h-4 w-4" />
                 <span className="hidden sm:inline max-w-[140px] truncate">{user?.fullName}</span>

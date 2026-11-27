@@ -25,9 +25,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
     };
     const sizes: Record<NonNullable<ButtonProps['size']>, string> = {
-      sm: 'h-8 px-3 text-xs',
-      md: 'h-9 px-4 text-sm',
-      lg: 'h-10 px-5 text-sm',
+      sm: 'h-10 px-3 text-xs sm:h-8',
+      md: 'h-11 px-4 text-sm sm:h-9',
+      lg: 'h-11 px-5 text-sm sm:h-10',
     };
 
     return (
@@ -52,7 +52,7 @@ export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputE
     <input
       ref={ref}
       className={cn(
-        'flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
+        'flex h-11 sm:h-9 min-w-0 w-full rounded-md border border-input bg-background px-3 py-1 text-base sm:text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
         className,
       )}
       {...props}
@@ -68,7 +68,7 @@ export const Textarea = forwardRef<
   <textarea
     ref={ref}
     className={cn(
-      'flex min-h-[90px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
+      'flex min-h-[90px] min-w-0 w-full rounded-md border border-input bg-background px-3 py-2 text-base sm:text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
       className,
     )}
     {...props}
@@ -78,7 +78,12 @@ Textarea.displayName = 'Textarea';
 
 export function Card({ className, children }: { className?: string; children: ReactNode }) {
   return (
-    <div className={cn('rounded-lg border bg-card text-card-foreground shadow-sm', className)}>
+    <div
+      className={cn(
+        'min-w-0 [overflow-wrap:anywhere] rounded-lg border bg-card text-card-foreground shadow-sm',
+        className,
+      )}
+    >
       {children}
     </div>
   );
@@ -154,7 +159,7 @@ export function Dialog({
       aria-modal="true"
       aria-labelledby="qd-dialog-title"
     >
-      <div className="w-full max-w-lg rounded-lg border bg-card p-6 text-card-foreground shadow-xl">
+      <div className="w-full max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-lg border bg-card p-4 sm:p-6 text-card-foreground shadow-xl">
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>
             <h2 id="qd-dialog-title" className="text-lg font-semibold">
@@ -198,7 +203,7 @@ export function ConfirmDialog({
   return (
     <Dialog open={open} onClose={onClose} title={title}>
       <p className="text-sm text-muted-foreground mb-6">{message}</p>
-      <div className="flex justify-end gap-2">
+      <div className="flex flex-wrap justify-end gap-2">
         <Button variant="outline" onClick={onClose} disabled={isPending}>
           Cancel
         </Button>

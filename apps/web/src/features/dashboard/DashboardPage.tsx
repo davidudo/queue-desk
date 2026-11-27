@@ -51,7 +51,7 @@ export function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Operations Dashboard</h1>
           <p className="text-sm text-muted-foreground">
@@ -82,7 +82,7 @@ export function DashboardPage() {
               const pct = data.totals.all > 0 ? Math.round((q.count / data.totals.all) * 100) : 0;
               return (
                 <div key={q.queueId} className="space-y-1">
-                  <div className="flex justify-between text-sm">
+                  <div className="flex flex-wrap justify-between gap-x-3 gap-y-1 text-sm">
                     <span className="font-medium">{q.queueName}</span>
                     <span className="text-muted-foreground">
                       {q.count.toLocaleString()} ({pct}%)
@@ -100,11 +100,11 @@ export function DashboardPage() {
         {/* Tickets by Priority */}
         <Card className="p-5 space-y-4">
           <h2 className="text-base font-semibold">Tickets by Priority</h2>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {data.byPriority.map((p) => (
               <div
                 key={p.priority}
-                className="flex items-center justify-between rounded-md border p-3"
+                className="flex flex-wrap items-center justify-between gap-3 rounded-md border p-3"
               >
                 <PriorityBadge priority={p.priority} />
                 <span className="text-lg font-semibold">{p.count.toLocaleString()}</span>
@@ -120,7 +120,7 @@ export function DashboardPage() {
           <h2 className="text-base font-semibold">Recently Updated Tickets</h2>
           <div className="divide-y">
             {data.recentlyUpdated.map((t) => (
-              <div key={t.id} className="py-2.5 flex items-center justify-between gap-3">
+              <div key={t.id} className="py-2.5 flex flex-wrap items-center justify-between gap-3">
                 <div className="min-w-0">
                   <Link
                     to={`/tickets/${t.id}`}
@@ -142,7 +142,7 @@ export function DashboardPage() {
         <Card className="p-5 space-y-4">
           <h2 className="text-base font-semibold">Agent Workload Overview</h2>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="min-w-[360px] w-full text-sm">
               <thead>
                 <tr className="border-b text-left text-xs text-muted-foreground">
                   <th className="pb-2 font-medium">Agent</th>
