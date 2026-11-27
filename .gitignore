@@ -37,3 +37,6 @@ Thumbs.db
 
 # Timestamped local baseline bundles (include database snapshots)
 /benchmarks/results/baseline-*/
+
+# Local submission inputs, including the database snapshot
+/inputs/queuedesk-baseline/
