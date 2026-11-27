@@ -22,7 +22,7 @@ COPY apps/web ./apps/web
 
 RUN pnpm --filter @queuedesk/shared build && pnpm --filter @queuedesk/web build
 
-FROM nginx:1.27.3-alpine AS runner
+FROM nginx:1.31.0-alpine AS runner
 
 COPY infrastructure/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/apps/web/dist /usr/share/nginx/html
