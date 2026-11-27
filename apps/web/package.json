@@ -12,7 +12,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.9.1",
+    "@hookform/resolvers": "^7.0.9",
     "@queuedesk/shared": "workspace:*",
     "@tanstack/react-query": "^5.62.11",
     "@tanstack/react-table": "^8.20.6",
