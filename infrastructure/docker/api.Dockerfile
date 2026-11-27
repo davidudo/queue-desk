@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:22.12.0-alpine3.20 AS builder
+FROM node:24.1.0-alpine3.20 AS builder
 WORKDIR /app
 
 RUN corepack enable && corepack prepare pnpm@9.15.9 --activate
@@ -17,7 +17,7 @@ COPY apps/api ./apps/api
 
 RUN pnpm --filter @queuedesk/shared build && pnpm --filter @queuedesk/api build
 
-FROM node:22.12.0-alpine3.20 AS runner
+FROM node:24.1.0-alpine3.20 AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
