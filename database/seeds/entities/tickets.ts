@@ -113,7 +113,7 @@ export async function seedTicketsAndRelations(
 
       subjects[i] = `[${customer.company}] ${scenario.subject} (#${globalIdx})`;
       descriptions[i] =
-        `${scenario.details}\n\n` +
+        `Product: FlowOps by Northstar Cloud\n\n${scenario.details}\n\n` +
         `Environment: ${scenario.component} | Workspace: ${workspaceId} | Error Code: ${scenario.error}\n` +
         `Reported by ${customer.name} (${customer.company}) — Ticket Ref #${globalIdx}.`;
       statuses[i] = status;

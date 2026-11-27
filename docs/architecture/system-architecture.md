@@ -16,3 +16,9 @@ flowchart LR
 2. **API (`apps/api`)**: Express middleware pipeline (Helmet, CORS, rate-limiting, `x-request-id`, Pino HTTP logging, JWT/session authentication, RBAC permission guards, Zod request validation) -> Controllers -> Services -> Repositories.
 3. **Shared (`packages/shared`)**: Single source of truth for Zod validation schemas, TypeScript DTOs, and RBAC permission matrices.
 4. **Database (`database/`)**: Versioned SQL migrations tracked in `schema_migrations` and a deterministic synthetic data generator.
+
+## Business Context
+
+QueueDesk serves Northstar Cloud, a fictional SaaS provider of FlowOps, an order workflow and operations platform for retail and logistics teams. Northstar Cloud employees use QueueDesk to manage issues reported by customer organizations. Customer requesters are recorded on tickets; they do not have a customer portal or staff login in this application.
+
+Agents investigate FlowOps incidents and subscription questions, supervisors coordinate escalations and workload, and administrators manage queues and staff permissions. FlowOps tenants, order processing, payment providers, and engineering escalation tools are business context rather than implemented integrations. All demonstration records are synthetic.

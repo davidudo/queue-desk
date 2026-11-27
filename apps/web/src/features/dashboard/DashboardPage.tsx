@@ -17,7 +17,7 @@ export function DashboardPage() {
   if (isLoading) {
     return (
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold tracking-tight">Operations Dashboard</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Support Operations</h1>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[1, 2, 3, 4].map((i) => (
             <Skeleton key={i} className="h-24 w-full" />
@@ -53,9 +53,9 @@ export function DashboardPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Operations Dashboard</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Support Operations</h1>
           <p className="text-sm text-muted-foreground">
-            Real-time overview of support queues, priorities, and agent workload.
+            FlowOps customer issues, support queues, and agent workload.
           </p>
         </div>
         <Link to="/tickets" className="text-sm font-medium text-primary hover:underline">
@@ -120,11 +120,11 @@ export function DashboardPage() {
           <h2 className="text-base font-semibold">Recently Updated Tickets</h2>
           <div className="divide-y">
             {data.recentlyUpdated.map((t) => (
-              <div key={t.id} className="py-2.5 flex flex-wrap items-center justify-between gap-3">
-                <div className="min-w-0">
+              <div key={t.id} className="py-2.5 flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
                   <Link
                     to={`/tickets/${t.id}`}
-                    className="text-sm font-medium hover:underline truncate block"
+                    className="block text-sm font-medium hover:underline whitespace-normal [overflow-wrap:anywhere]"
                   >
                     #{t.ticketNumber} {t.subject}
                   </Link>

@@ -3,7 +3,21 @@
 [![CI](https://github.com/davidudo/queue-desk/actions/workflows/ci.yml/badge.svg)](https://github.com/davidudo/queue-desk/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-QueueDesk is an internal support-ticket management platform built with TypeScript, React, Express, and PostgreSQL in a pnpm workspaces monorepo.
+QueueDesk is the internal customer support workspace for **Northstar Cloud**, a fictional B2B SaaS company. Northstar Cloud builds **FlowOps**, a platform that helps retail and logistics teams coordinate orders, automate workflows, and monitor operational performance.
+
+Built with TypeScript, React, Express, and PostgreSQL in a pnpm workspaces monorepo, QueueDesk gives Northstar Cloud’s support team one place to investigate FlowOps incidents, handle subscription questions, and coordinate enterprise onboarding.
+
+Northstar Cloud and FlowOps are fictional; all seeded companies, people, and tickets are synthetic.
+
+## Company and Support Workflow
+
+- **Customers:** Operations managers, finance teams, and integration developers at retail and logistics businesses using FlowOps.
+- **Support agents:** Triage customer reports, reproduce problems, request diagnostic details, and record replies and internal notes.
+- **Supervisors:** Monitor workload, coordinate escalations to product engineering, and review unresolved customer issues.
+- **Administrators:** Maintain support queues, staff access, and audit visibility.
+- **Queues:** Technical Support, Billing & Payments, Account & Access, API & Integrations, Enterprise Onboarding, and Security & Compliance.
+
+A typical case starts with a delayed FlowOps order webhook. An agent records the customer’s tenant and request ID, routes the case to API & Integrations, adds investigation notes, and resolves it after the customer confirms delivery has recovered. QueueDesk tracks the support case; FlowOps itself and external engineering or billing integrations are outside this repository.
 
 ## Features
 

@@ -52,7 +52,7 @@ export function LoginPage() {
           </div>
           <h1 className="text-2xl font-bold tracking-tight">Sign in to QueueDesk</h1>
           <p className="text-sm text-muted-foreground">
-            Internal customer support ticket management
+            Northstar Cloud · FlowOps customer support
           </p>
         </div>
 

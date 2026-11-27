@@ -193,7 +193,7 @@ export function AppShell() {
               <Menu className="h-5 w-5" />
             </Button>
             <div className="text-sm font-medium text-muted-foreground truncate">
-              Support Operations Platform
+              Northstar Cloud Support
             </div>
           </div>
 

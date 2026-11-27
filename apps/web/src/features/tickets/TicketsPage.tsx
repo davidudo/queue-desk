@@ -237,7 +237,7 @@ export function TicketsPage() {
           <p className="text-sm text-muted-foreground">
             {meta
               ? `${meta.totalCount.toLocaleString()} matching tickets`
-              : 'Browse, search, filter, and manage customer tickets'}
+              : 'Investigate and manage FlowOps customer issues'}
           </p>
         </div>
 

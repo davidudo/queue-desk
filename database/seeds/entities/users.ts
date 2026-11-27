@@ -27,7 +27,7 @@ export async function seedUsersAndAgents(
       fullName: 'Elena Vance (Admin)',
       passwordHash: hashPasswordSync('QueueDesk!Admin2026'),
       role: 'admin',
-      department: 'Platform Operations',
+      department: 'Northstar Cloud Operations',
       capacity: 15,
       isAvailable: true,
     },

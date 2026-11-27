@@ -163,31 +163,31 @@ export const QUEUE_DEFS = [
   {
     name: 'Technical Support',
     slug: 'technical-support',
-    description: 'Core application errors, bugs, and runtime troubleshooting',
+    description: 'FlowOps workflow failures, reporting errors, and runtime troubleshooting',
     weight: 38,
   },
   {
     name: 'Billing & Payments',
     slug: 'billing-payments',
-    description: 'Invoices, subscription changes, refunds, and payment failures',
+    description: 'FlowOps subscription invoices, plan changes, refunds, and payment failures',
     weight: 27,
   },
   {
     name: 'Account & Access',
     slug: 'account-access',
-    description: 'SSO, MFA resets, role permissions, and workspace provisioning',
+    description: 'FlowOps tenant SSO, MFA resets, role permissions, and workspace provisioning',
     weight: 14,
   },
   {
     name: 'API & Integrations',
     slug: 'api-integrations',
-    description: 'REST API, webhooks, OAuth apps, and SDK issues',
+    description: 'FlowOps order API, delivery webhooks, OAuth apps, and SDK issues',
     weight: 10,
   },
   {
     name: 'Enterprise Onboarding',
     slug: 'enterprise-onboarding',
-    description: 'Dedicated tenant setup, data imports, and SLA reviews',
+    description: 'FlowOps enterprise tenant setup, order imports, and support handover',
     weight: 6,
   },
   {
@@ -228,7 +228,7 @@ export const ISSUE_SCENARIOS = [
     error: 'WEBHOOK_RETRY_BACKOFF_EXCEEDED',
     component: 'Event Pipeline',
     details:
-      'Outbound order.updated webhooks are arriving 18-25 minutes after the event timestamp. Our endpoint responds with HTTP 200 in <120ms, so the delay appears to be upstream in the dispatch queue.',
+      'Outbound FlowOps order.updated webhooks are arriving 18-25 minutes after the event timestamp. Our endpoint responds with HTTP 200 in <120ms, so the delay appears to be upstream in the dispatch queue.',
   },
   {
     subject: 'Monthly invoice PDF missing VAT registration number',
@@ -263,7 +263,7 @@ export const ISSUE_SCENARIOS = [
     error: 'RBAC_CACHE_STALE',
     component: 'Access Control',
     details:
-      'Promoted three analysts from Viewer to Editor 40 minutes ago. They still receive 403 Forbidden when attempting to save dashboard filters.',
+      'Promoted three analysts from Viewer to Editor 40 minutes ago. They still receive 403 Forbidden when attempting to save FlowOps operations dashboard filters.',
   },
   {
     subject: 'OAuth refresh token returning 401 invalid_grant',
@@ -291,14 +291,14 @@ export const ISSUE_SCENARIOS = [
     error: 'SESSION_IP_BINDING_MISMATCH',
     component: 'Mobile Client',
     details:
-      'Field technicians moving from office Wi-Fi to cellular LTE are logged out immediately and forced to re-enter MFA codes.',
+      'Warehouse operators moving from office Wi-Fi to cellular LTE are logged out immediately and forced to re-enter MFA codes.',
   },
   {
     subject: 'Scheduled Monday executive digest email not delivered',
     error: 'SMTP_BOUNCE_SOFT',
     component: 'Notifications',
     details:
-      'None of our 14 leadership recipients received the 07:00 UTC Monday summary email. Other transactional password-reset emails arrive normally.',
+      'None of our 14 leadership recipients received the 07:00 UTC Monday FlowOps order summary email. Other transactional password-reset emails arrive normally.',
   },
 ] as const;
 
