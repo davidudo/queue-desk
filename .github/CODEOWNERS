@@ -1,0 +1,4 @@
+* @queuedesk-maintainers
+/database/ @queuedesk-db-owners
+/infrastructure/ @queuedesk-devops
+/.github/ @queuedesk-devops

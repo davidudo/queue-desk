@@ -1,0 +1,49 @@
+name: Deploy Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Versioned image tag to deploy (e.g., sha-abc1234 or 1.0.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-deployment
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ secrets.PRODUCTION_URL }}
+
+    steps:
+      - name: Deploy via SSH to Docker Compose host
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            set -euo pipefail
+            cd /opt/queuedesk
+            export IMAGE_TAG="${{ inputs.image_tag }}"
+            docker compose -f docker-compose.prod.yml pull api web
+            docker compose -f docker-compose.prod.yml run --rm api node -e "console.log('Running migrations...')" && \
+              docker compose -f docker-compose.prod.yml up -d --remove-orphans
+            for i in $(seq 1 12); do
+              if curl -fsS http://localhost/ready >/dev/null; then
+                echo "Readiness check passed"
+                exit 0
+              fi
+              sleep 5
+            done
+            echo "Readiness check failed; inspect container logs"
+            docker compose -f docker-compose.prod.yml logs --tail=50 api web
+            exit 1

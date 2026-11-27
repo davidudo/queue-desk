@@ -1,0 +1,53 @@
+services:
+  postgres:
+    image: postgres:16.6-alpine3.20
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER is required}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+      POSTGRES_DB: ${POSTGRES_DB:-queuedesk}
+    volumes:
+      - queuedesk_prod_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB:-queuedesk}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal
+
+  api:
+    image: ${GHCR_REGISTRY:-ghcr.io}/${IMAGE_OWNER:-your-org}/queuedesk-api:${IMAGE_TAG:-1.0.0}
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      API_PORT: 4000
+      DATABASE_URL: ${DATABASE_URL:?DATABASE_URL is required}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
+      CORS_ORIGIN: ${CORS_ORIGIN:?CORS_ORIGIN is required}
+      COOKIE_SECURE: 'true'
+      COOKIE_SAME_SITE: strict
+      LOG_LEVEL: info
+    networks:
+      - internal
+
+  web:
+    image: ${GHCR_REGISTRY:-ghcr.io}/${IMAGE_OWNER:-your-org}/queuedesk-web:${IMAGE_TAG:-1.0.0}
+    restart: always
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - '80:8080'
+    networks:
+      - internal
+
+volumes:
+  queuedesk_prod_pgdata:
+
+networks:
+  internal:
+    driver: bridge

@@ -1,0 +1,64 @@
+services:
+  postgres:
+    image: postgres:16.6-alpine3.20
+    container_name: queuedesk-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-queuedesk}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-queuedesk_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-queuedesk}
+    ports:
+      - '5432:5432'
+    volumes:
+      - queuedesk_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-queuedesk} -d ${POSTGRES_DB:-queuedesk}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - queuedesk_net
+
+  api:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/api.Dockerfile
+    container_name: queuedesk-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      API_PORT: 4000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-queuedesk}:${POSTGRES_PASSWORD:-queuedesk_dev_password}@postgres:5432/${POSTGRES_DB:-queuedesk}
+      JWT_SECRET: ${JWT_SECRET:-queuedesk-local-dev-secret-change-in-production-min-32-chars}
+      CORS_ORIGIN: http://localhost:8080,http://localhost:5173
+    ports:
+      - '4000:4000'
+    networks:
+      - queuedesk_net
+
+  web:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/web.Dockerfile
+      args:
+        VITE_API_BASE_URL: /api/v1
+        VITE_ENABLE_DEV_QUICK_LOGIN: 'true'
+    container_name: queuedesk-web
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - '8080:8080'
+    networks:
+      - queuedesk_net
+
+volumes:
+  queuedesk_pgdata:
+
+networks:
+  queuedesk_net:
+    driver: bridge

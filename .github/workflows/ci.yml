@@ -1,0 +1,73 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  quality-and-tests:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16.6-alpine3.20
+        env:
+          POSTGRES_USER: queuedesk
+          POSTGRES_PASSWORD: queuedesk_ci_password
+          POSTGRES_DB: queuedesk_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      NODE_ENV: test
+      DATABASE_URL: postgresql://queuedesk:queuedesk_ci_password@localhost:5432/queuedesk_test
+      TEST_DATABASE_URL: postgresql://queuedesk:queuedesk_ci_password@localhost:5432/queuedesk_test
+      JWT_SECRET: ci-test-jwt-secret-minimum-32-characters-long
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check formatting
+        run: pnpm run format:check
+
+      - name: Run linter
+        run: pnpm run lint
+
+      - name: Build shared package
+        run: pnpm --filter @queuedesk/shared build
+
+      - name: Run TypeScript typechecks
+        run: pnpm run typecheck
+
+      - name: Run unit tests with coverage
+        run: pnpm run test:coverage
+
+      - name: Run integration tests
+        run: pnpm run test:integration
+
+      - name: Build production artifacts
+        run: pnpm run build
+
+      - name: Audit production dependencies
+        run: pnpm audit --prod --audit-level=high

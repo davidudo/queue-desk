@@ -1,0 +1,18 @@
+name: Feature Request
+description: Propose a new capability or improvement for QueueDesk
+title: '[Feature]: '
+labels: ['enhancement']
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What operational or engineering problem does this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Solution
+    validations:
+      required: true
