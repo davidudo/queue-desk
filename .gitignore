@@ -34,3 +34,6 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Timestamped local baseline bundles (include database snapshots)
+/benchmarks/results/baseline-*/

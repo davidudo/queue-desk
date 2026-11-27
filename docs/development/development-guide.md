@@ -15,7 +15,11 @@
 
 ## Benchmarking
 
+For an isolated, repeatable baseline with a database snapshot, correctness
+checks, real query plans, and three read/write measurements, follow
+[the benchmark guide](../../benchmarks/README.md).
+
 1. Seed a large dataset: `SEED_PROFILE=large pnpm run db:seed` (250,000 tickets).
 2. Start the API server (`pnpm run dev:api` or production build).
-3. Run Autocannon: `pnpm run benchmark -- --connections=25 --duration=15 --mode=read`.
+3. Run Autocannon: `pnpm run benchmark --connections=25 --duration=15 --mode=read`.
 4. Inspect PostgreSQL query plans: `pnpm run benchmark:explain`.
